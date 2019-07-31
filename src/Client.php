@@ -91,18 +91,15 @@ class Client extends Component
 		}
 
 		try {
-			$result = $this->httpClient->request($method, $url, function (Event $event) use ($body) {
-					$request = $event->message;
-					$authString = base64_encode($this->username . ':' . $this->password);
-					$request->addHeader("Authorization", "Basic " . $authString);
-					$request->addHeader("Accept", "application/json");
-					$request->addHeader("Content-Type", "application/json");
-					if (!empty($body)) {
-						$stream = new BufferStream();
-						$stream->write($body);
-						$request->setBody($stream);
-					}
-				});
+            $authString = base64_encode($this->username . ':' . $this->password);
+
+            $this->httpClient->requestHeaders = [
+                'Authorization' =>  "Basic " . $authString,
+                'Accept' => "application/json",
+                'Content-Type' => "application/json",
+            ];
+
+			$result = $this->httpClient->request($method, $url, $body);
 			if (is_string($result)) {
 				$result = Json::decode($result);
 			}
