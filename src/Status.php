@@ -95,8 +95,8 @@ class Status extends Model
         $status->description = $data['description'];
         $status->iconUrl = $data['iconUrl'];
         $status->self = $data['self'];
-        $status->colorName = $data['colorName'];
         $status->_statusCategory = StatusCategory::get($data['statusCategory']);
+        $status->colorName = $status->_statusCategory->colorName;
 
         return $status;
     }

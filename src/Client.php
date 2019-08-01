@@ -79,7 +79,7 @@ class Client extends Component
 	{
 		$url = $this->getUrlOfPath($path);
 
-		if (is_array($body) && !empty($body)) {
+		if (is_array($body)) {
 			$body = Json::encode($body);
 		}
 
@@ -100,14 +100,14 @@ class Client extends Component
             ];
 
 			$result = $this->httpClient->request($method, $url, $body);
-			if (is_string($result)) {
-				$result = Json::decode($result);
+            if (is_string($result)) {
+                $result = Json::decode($result);
 			}
 			\Yii::trace($url . "\n" . $body, __CLASS__);
 
 		} catch (RequestException $e) {
 
-			$result = $e->getResponse()->getBody()->__toString();
+            $result = $e->getResponse()->getBody()->__toString();
 
 			$contentType = $e->getResponse()->getHeader('Content-Type')[0];
 			if (strpos($contentType, 'application/json') !== false)
