@@ -79,7 +79,10 @@ class Client extends Component
 	{
 		$url = $this->getUrlOfPath($path);
 
-		if (is_array($body)) {
+	        if (empty($body)) {
+	            $body = null;
+	        }
+		elseif (is_array($body)) {
 			$body = Json::encode($body);
 		}
 
@@ -91,7 +94,8 @@ class Client extends Component
 		}
 
 		try {
-            $authString = base64_encode($this->username . ':' . $this->password);
+            $authString = base64_encode($this->username . ':' . $this->password);:set nu
+
 
             $this->httpClient->requestHeaders = [
                 'Authorization' =>  "Basic " . $authString,
