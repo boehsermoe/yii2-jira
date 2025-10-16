@@ -94,7 +94,7 @@ class Client extends Component
 		}
 
 		try {
-            $authString = base64_encode($this->username . ':' . $this->password);:set nu
+            $authString = base64_encode($this->username . ':' . $this->password);
 
 
             $this->httpClient->requestHeaders = [
